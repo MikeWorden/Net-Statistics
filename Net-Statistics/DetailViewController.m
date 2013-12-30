@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "netConnection.h"
 
 @interface DetailViewController ()
 @property (strong, nonatomic) UIPopoverController *masterPopoverController;
@@ -25,18 +26,31 @@
         // Update the view.
         [self configureView];
     }
-
+    
     if (self.masterPopoverController != nil) {
         [self.masterPopoverController dismissPopoverAnimated:YES];
-    }        
+    }
 }
 
 - (void)configureView
 {
     // Update the user interface for the detail item.
-
+    
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+        netConnection *connection = self.detailItem;
+        
+        self.lblForeignAddress.text = connection.foreignAddress;
+        self.lblLocalAddress.text = connection.localAddress;
+        self.lblForeignPort.text = connection.foreignPort;
+        self.lblLocalPort.text = connection.localPort;
+        self.lblTXBytes.text = [NSString stringWithFormat:@"%@", connection.txBytes];
+        self.lblRCVBytes.text = [NSString stringWithFormat:@"%@", connection.rxBytes];
+        self.lblTXQueue.text = [NSString stringWithFormat:@"%@", connection.txQueue];
+        self.lblRCVQueue.text = [NSString stringWithFormat:@"%@", connection.rxQueue];
+        self.lblState.text = connection.state;
+        
+        
+        //        self.detailDescriptionLabel.text = [self.detailItem description];
     }
 }
 
@@ -44,6 +58,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+
     [self configureView];
 }
 
@@ -68,5 +83,7 @@
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     self.masterPopoverController = nil;
 }
+
+
 
 @end

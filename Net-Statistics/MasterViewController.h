@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NetUtils.h"
 
 @class DetailViewController;
 
@@ -14,4 +15,5 @@
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 
+@property (strong, nonatomic) iDevice *myDevice;
 @end
