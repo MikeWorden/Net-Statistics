@@ -29,7 +29,7 @@
 @property (nonatomic, retain) NSString *interfaceType;
 @property (nonatomic, retain) NSString *interfaceDetail;
 
-//-(NSArray *)getConnectionsForInterface: (NSString *) enAddress;
+
 -(id) initWithIFAddr: (NSString *) ifName : (NSString *) ifAddr : (NSArray *) connectionList;
 
 

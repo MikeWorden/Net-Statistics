@@ -5,6 +5,44 @@
 //  Created by Michael Worden on 12/26/13.
 //  Copyright (c) 2013 Michael Worden. All rights reserved.
 //
+//  Includes code pulled from http://www.opensource.apple.com/source/network_cmds/network_cmds-307.0.1/netstat.tproj/inet6.c?txt
+
+
+/*	BSDI inet.c,v 2.3 1995/10/24 02:19:29 prb Exp	*/
+/*
+ * Copyright (c) 1983, 1988, 1993
+ *	The Regents of the University of California.  All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ * 3. All advertising materials mentioning features or use of this software
+ *    must display the following acknowledgement:
+ *	This product includes software developed by the University of
+ *	California, Berkeley and its contributors.
+ * 4. Neither the name of the University nor the names of its contributors
+ *    may be used to endorse or promote products derived from this software
+ *    without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ *
+ * $FreeBSD: src/usr.bin/netstat/inet6.c,v 1.3.2.9 2001/08/10 09:07:09 ru Exp $
+ */
 
 #import "NetMonitor2.h"
 
@@ -59,6 +97,10 @@ int	xflag = 0;		/* show extended link-layer reachability information */
 
 
 #pragma mark Private Methods from inet.c
+
+// protopr - pull list of connections
+// repurposed protopr from inet.c to return an NSArray of dictionary objects describing network connections
+// used dictionary object as characteristics of connections vary based on state (listening/established, etc.)
 
 - (NSArray *) protopr:(uint32_t) proto name: (char *) name  af:(int) af		/* for sysctl version we pass proto # */
 
@@ -280,6 +322,8 @@ int	xflag = 0;		/* show extended link-layer reachability information */
     
 }
 
+// inetprint pulled from inet.c
+
 char * inetprint(struct in_addr *in, int port, char *proto, int numeric_port)
 {
 	
@@ -311,7 +355,7 @@ char * inetprint(struct in_addr *in, int port, char *proto, int numeric_port)
     
 }
 
-/*
+/* inetname pulled from inet.c
  * Construct an Internet address representation.
  * If the nflag has been supplied, give
  * numeric value, otherwise try for symbolic name.
@@ -357,8 +401,9 @@ char * inetname(struct in_addr *inp)
 
 
 
- char *
-inet61print(struct in6_addr *in6, int port, const char *proto)
+
+// From inet.c -- future functionality
+ char * inet61print(struct in6_addr *in6, int port, const char *proto)
 {
 	struct servent *sp = 0;
 	static char line[80];
@@ -384,7 +429,7 @@ inet61print(struct in6_addr *in6, int port, const char *proto)
     
 }
 
-/*
+/* pulled from inet.c -- future functionality
  * Construct an Internet address representation.
  * If the nflag has been supplied, give
  * numeric value, otherwise try for symbolic name.
@@ -447,6 +492,8 @@ inet6name(struct in6_addr *in6p)
 }
 
 #pragma mark Public Methods
+
+
 
 - (NSArray *) getTCPConnections {
 

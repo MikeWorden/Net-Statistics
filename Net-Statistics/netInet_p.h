@@ -1,5 +1,11 @@
 
-
+//
+//  netinet_p.h
+//  private headers to provide inet capabilities.   Pulled from OpenSource.apple.com
+//
+//  Created by Michael Worden on 12/26/13.
+//  Copyright (c) 2013 Michael Worden. All rights reserved.
+//
 /*
  * Copyright (c) 1983, 1988, 1993, 1995
  *	The Regents of the University of California.  All rights reserved.

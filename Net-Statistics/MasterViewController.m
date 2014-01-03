@@ -51,10 +51,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    
 
     UIBarButtonItem *scanButton = [[ UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(updateConnectionList)];
     self.navigationItem.rightBarButtonItem = scanButton;
+    
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     _myDevice = [[iDevice alloc] init];
 }
@@ -104,8 +105,10 @@
     if (cell == nil){
         [NSException raise:@"cell == nil.." format:@"No cells with matching CellIdentifier loaded from my storyboard"];
     }
+    UIColor *cellColor = [UIColor colorWithRed:85.0f/255.0f green:85.0f/255.0f blue:85.0f/255.0f alpha:1.0f];
+    [cell setBackgroundColor:cellColor];
     
-   
+    
     netInterface *sectionInterface = _myDevice.netInterfaces[indexPath.section];
     NSArray *connectionList = sectionInterface.netConnections;
     
@@ -140,7 +143,7 @@
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -162,7 +165,7 @@
     if (headerView == nil){
         [NSException raise:@"headerView == nil.." format:@"No cells with matching CellIdentifier loaded from your storyboard"];
     }
-    [headerView setBackgroundColor:[UIColor blueColor]];
+    [headerView setBackgroundColor:[UIColor blackColor]];
     
     netInterface *interface = _myDevice.netInterfaces[section];
     NSString *nameText = [NSString stringWithFormat:@"%@:  %@", interface.interfaceType, interface.interfaceDetail];
